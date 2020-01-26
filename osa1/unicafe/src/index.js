@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 
 const StatisticLine = ({text, value}) => {
     return (
-        <>
-          {text} {value} <br/>
-        </>
+        <tr>
+          <td>{text}</td>
+          <td>{value}</td> 
+        </tr>
     )
 }
 
@@ -24,14 +25,16 @@ const Statistics = (props) => {
     }
 
     return (
-        <>            
-          <StatisticLine text="good" value ={props.good} />
-          <StatisticLine text="neutral" value ={props.neutral} />
-          <StatisticLine text="bad" value ={props.bad} />
-          <StatisticLine text="all" value ={all} />
-          <StatisticLine text="average" value ={average} />
-          <StatisticLine text="positive" value ={positive} />
-        </>
+        <table>  
+          <tbody>         
+            <StatisticLine text="good" value ={props.good} />
+            <StatisticLine text="neutral" value ={props.neutral} />
+            <StatisticLine text="bad" value ={props.bad} />
+            <StatisticLine text="all" value ={all} />
+            <StatisticLine text="average" value ={average} />
+            <StatisticLine text="positive" value ={positive} />
+          </tbody> 
+        </table>
     )
 
 }
@@ -60,9 +63,7 @@ const App = () => {
         <button onClick={handleNeutralClick}>neutral</button>
         <button onClick={handleBadClick}>bad</button>
         <h1>statistics</h1>
-        <p>
-          <Statistics good={good} neutral={neutral} bad={bad} />
-        </p>
+        <Statistics good={good} neutral={neutral} bad={bad} />
       </div>
     )
   }
