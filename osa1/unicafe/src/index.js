@@ -1,22 +1,36 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 
+const StatisticLine = ({text, value}) => {
+    return (
+        <>
+          {text} {value} <br/>
+        </>
+    )
+}
+
 const Statistics = (props) => {
     const all = props.good + props.neutral + props.bad
 
     let average = 0;
     let positive = 0;
 
-    if (all > 0) {
+    if (all === 0 ) {
+        return 'No feedback given'
+    }else {
         average = (((props.good*1)+(props.bad*(-1)))/all)
-        positive = props.good / all
+        positive = props.good / all * 100
+        positive += ' %'
     }
 
     return (
-        <>
-          all {all} <br/>
-          average {average} <br/>
-          positive {positive} %<br/>
+        <>            
+          <StatisticLine text="good" value ={props.good} />
+          <StatisticLine text="neutral" value ={props.neutral} />
+          <StatisticLine text="bad" value ={props.bad} />
+          <StatisticLine text="all" value ={all} />
+          <StatisticLine text="average" value ={average} />
+          <StatisticLine text="positive" value ={positive} />
         </>
     )
 
@@ -38,7 +52,7 @@ const App = () => {
     const handleBadClick = () => {
         setBad(bad + 1)
     }
-  
+
     return (
       <div>
         <h1>give feedback</h1>
@@ -47,10 +61,7 @@ const App = () => {
         <button onClick={handleBadClick}>bad</button>
         <h1>statistics</h1>
         <p>
-            good {good} <br/>
-            neutral {neutral} <br/>
-            bad {bad} <br/>
-            <Statistics good={good} neutral={neutral} bad={bad} />
+          <Statistics good={good} neutral={neutral} bad={bad} />
         </p>
       </div>
     )
