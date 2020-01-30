@@ -4,6 +4,6 @@
 
 * [Osa1](https://github.com/riiraty/fullstack-hy2020/tree/master/osa1)
 
-  * [kurssitiedot](https://github.com/riiraty/fullstack-hy2020/tree/master/osa1/kurssitiedot/kurssitiedot)
+  * [kurssitiedot](https://github.com/riiraty/fullstack-hy2020/tree/master/osa1/kurssitiedot)
   * [unicafe](https://github.com/riiraty/fullstack-hy2020/tree/master/osa1/unicafe)
   * [anekdootit](https://github.com/riiraty/fullstack-hy2020/tree/master/osa1/anekdootit)
