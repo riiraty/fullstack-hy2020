@@ -10,6 +10,6 @@ const persons = [
 ]
 
 ReactDOM.render(
-  <App persons={persons} />,
+  <App />,
   document.getElementById('root')
 )

@@ -1,19 +1,25 @@
 import React from 'react'
+import puhelinluetteloService from '../services/puhelinluettelo'
+
 
 const PersonForm = (props) => {
 
-    const addPerson = (event) => {
-      event.preventDefault()
-      console.log('button clicked')
-      if (!props.persons.some(person => person.name === props.newName)) {
-        const nameObject = {
-            name: props.newName,
-            number: props.newNumber,
-        }
-  
-        props.setPersons(props.persons.concat(nameObject))
-        props.setNewName('')
-        props.setNewNumber('')
+  const addPerson = (event) => {
+    event.preventDefault()
+    console.log('button clicked')
+    if (!props.persons.some(person => person.name === props.newName)) {
+      const nameObject = {
+        name: props.newName,
+        number: props.newNumber,
+      }
+
+      puhelinluetteloService
+        .create(nameObject)
+        .then(returnedPerson => {
+          props.setPersons(props.persons.concat(returnedPerson))
+          props.setNewName('')
+          props.setNewNumber('')
+        })
       } else {
         window.alert(`${props.newName} is already added to phonebook`)
       }

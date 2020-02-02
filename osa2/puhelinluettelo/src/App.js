@@ -1,25 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+//import axios from 'axios'
+import puhelinluetteloService from './services/puhelinluettelo'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 
-const App = (props) => {
-  const [ persons, setPersons] = useState(props.persons) 
+const App = () => {
+  const [ persons, setPersons] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
 
-const handleNameChange = (event) => {
-    setNewName(event.target.value)
-}
+  const hook = () => {
+    puhelinluetteloService
+      .getAll()
+      .then(allPersons => {
+        setPersons(allPersons)
+      })
+  }
 
-const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
-}
+  useEffect(hook, [])
 
-const handleFilter = (event) => {
-    setNewFilter(event.target.value)
-}
+  const handleNameChange = (event) => {
+      setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+      setNewNumber(event.target.value)
+  }
+
+  const handleFilter = (event) => {
+      setNewFilter(event.target.value)
+  }
 
   return (
     <div>
@@ -34,7 +46,7 @@ const handleFilter = (event) => {
 
       <h3>Numbers</h3>
 
-      <Persons persons={persons} filter={newFilter}/>
+      <Persons persons={persons} setPersons={setPersons} filter={newFilter} />
     </div>
   )
 
