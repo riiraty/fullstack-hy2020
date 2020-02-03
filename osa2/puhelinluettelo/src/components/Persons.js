@@ -3,7 +3,6 @@ import puhelinluetteloService from '../services/puhelinluettelo'
 import Person from './Person'
 
 const Persons = (props) => {
-
   const doRemovePerson = (person) => {
     console.log('delete clicked') 
     if (window.confirm(`Delete ${person.name} ?`)) {
@@ -15,14 +14,17 @@ const Persons = (props) => {
       puhelinluetteloService
         .remove(removableID, removablePerson)
         .then(response => {
-          console.log(response)
-          console.log('response logged<')
           props.setPersons(props.persons.filter(person => person.name !== removablePerson.name))
+          props.setErrorMessage(
+            `Succesfully deleted ${removablePerson.name}`
+          )
+          setTimeout(() => {
+            props.setErrorMessage(null)
+          }, 5000)
         })
         .catch(error => {
-          console.log('error while removing')
+          console.log('error while trying to delete')
         })
-
     }
      
   }
@@ -34,6 +36,7 @@ const Persons = (props) => {
         key={person.name}
         person={person}
         doRemovePerson={() => doRemovePerson(person)} 
+        
       />)
     )
   }
