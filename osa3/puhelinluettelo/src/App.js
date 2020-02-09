@@ -106,6 +106,7 @@ const App = () => {
       <Notification notification={notification} />
 
       filter with:
+      &nbsp;
       <Filter 
         value={filterString} 
         onChange={handleFilterStringChange} 
