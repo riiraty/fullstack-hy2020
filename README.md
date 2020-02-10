@@ -13,7 +13,8 @@
   * [kurssitiedot](https://github.com/riiraty/fullstack-hy2020/tree/master/osa2/kurssitiedot)
   * [puhelinluettelo](https://github.com/riiraty/fullstack-hy2020/tree/master/osa2/puhelinluettelo)
 
-*[Osa3](https://github.com/riiraty/fullstack-hy2020/tree/master/osa3)
+* [Osa3](https://github.com/riiraty/fullstack-hy2020/tree/master/osa3)
 
-  * [puhelinluettelo_front](https://github.com/riiraty/fullstack-hy2020/tree/master/osa3/puhelinluettelo)
-  * [puhelinluettelo_back -repo](https://github.com/riiraty/fullstack-osa3)
+  * [puhelinluettelo_frontend](https://github.com/riiraty/fullstack-hy2020/tree/master/osa3/puhelinluettelo)
+  * [puhelinluettelo_backend](https://github.com/riiraty/fullstack-osa3)
+  * <https://agile-earth-95554.herokuapp.com/>
