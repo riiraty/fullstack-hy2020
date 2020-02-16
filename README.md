@@ -18,3 +18,7 @@
   * [puhelinluettelo_frontend](https://github.com/riiraty/fullstack-hy2020/tree/master/osa3/puhelinluettelo)
   * [puhelinluettelo_backend](https://github.com/riiraty/fullstack-osa3)
   * <https://agile-earth-95554.herokuapp.com/>
+ 
+* [Osa4](https://github.com/riiraty/fullstack-osa4)
+
+  * [bloglist_backend](https://github.com/riiraty/fullstack-osa4)
