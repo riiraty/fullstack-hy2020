@@ -68,8 +68,8 @@ const App = () => {
       }
 
       await blogService.update(id, updatedBlog)
-      setBlogs(await blogService.getAll())
       notifyWith(`you liked blog titled ${blog.title}!`)
+      setBlogs(await blogService.getAll())
     } catch (exception) {
       notifyWith('something went wrong...', 'error')
     }
@@ -90,7 +90,7 @@ const App = () => {
     }
   }
 
-  const logout = async (event) => {
+  const logout = async () => {
     window.localStorage.clear()
     setUser(null)
     notifyWith('refresh page to complete logout')
@@ -139,7 +139,7 @@ const App = () => {
         </div>
       }
 
-      <div>
+      <div id='bloglist'>
         {blogs.sort((a, b) => {
           return b.likes - a.likes
         }).map(blog =>

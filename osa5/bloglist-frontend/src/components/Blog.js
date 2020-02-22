@@ -20,11 +20,11 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
     currentUserId = user.id
   }
 
-  const like = (event) => {
+  const like = () => {
     handleLike({ blog })
   }
 
-  const remove = (event) => {
+  const remove = () => {
     handleRemove({ blog })
   }
 
@@ -33,12 +33,12 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
       <div style={blogStyle} className='blog'>
         {blog.title}
         &nbsp;
-        <button onClick={() => setShowAll(false)}>
+        <button id='hideButton' onClick={() => setShowAll(false)}>
           hide</button> <br/>
         {blog.author} <br/>
-        likes {blog.likes}
+        <span id='likes'>likes {blog.likes}</span>
         &nbsp;
-        <button onClick={like} className='likeButton'>
+        <button id='likeButton' onClick={like} className='likeButton'>
           like</button> <br/>
         {blog.url} <br/>
         {saverId === currentUserId ?
@@ -49,7 +49,7 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
 
   const partialBlog = (
     <div style={blogStyle} className='blog'>
-      {blog.title}
+      <span id='blog'>{blog.title}</span>
       &nbsp;
       <button onClick={() => setShowAll(true)} className='viewButton'>
         view</button>
@@ -57,7 +57,7 @@ const Blog = ({ blog, user, handleLike, handleRemove }) => {
   )
 
   const removeButton = (
-    <button onClick={remove}>remove</button>
+    <button id='removeButton' onClick={remove}>remove</button>
   )
 
   return (
