@@ -22,3 +22,7 @@
 * [Osa4](https://github.com/riiraty/fullstack-osa4)
 
   * [bloglist_backend](https://github.com/riiraty/fullstack-osa4)
+  
+* [Osa5](https://github.com/riiraty/fullstack-hy2020/tree/master/osa5)
+
+  * [bloglist_frontend](https://github.com/riiraty/fullstack-hy2020/tree/master/osa5/bloglist-frontend)
