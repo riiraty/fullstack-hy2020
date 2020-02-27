@@ -4,7 +4,7 @@ const notificationReducer = (state = '', action) => {
     case 'SET_NOTIFICATION':
       return action.notification
     case 'ERASE':
-      return ''
+      return action.notification
     default:
       console.log(state)
       return state
@@ -21,7 +21,7 @@ export const notify = notification => {
 export const erase = () => {
   return {
     type: 'ERASE',
-    data: ''
+    notification: ''
   }
 }
 

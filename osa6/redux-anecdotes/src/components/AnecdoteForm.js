@@ -13,10 +13,11 @@ const AnecdoteForm = (props) => {
     }, 5000)
   }
 
-  const addNew = (event) => {
+  const addNew = async (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
+    //const newAnecdote = await anecdoteService.createNew(content)
     dispatch(create(content))
     notifyWith('new anecdote added!')
   }
