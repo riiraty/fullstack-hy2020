@@ -26,3 +26,8 @@
 * [Osa5](https://github.com/riiraty/fullstack-hy2020/tree/master/osa5)
 
   * [bloglist_frontend](https://github.com/riiraty/fullstack-hy2020/tree/master/osa5/bloglist-frontend)
+  
+ * [Osa6](https://github.com/riiraty/fullstack-hy2020/tree/master/osa6)
+ 
+   * [unicafe-redux](https://github.com/riiraty/fullstack-hy2020/tree/master/osa6/unicafe-redux)
+   * [redux-anecdotes](https://github.com/riiraty/fullstack-hy2020/tree/master/osa6/redux-anecdotes)
