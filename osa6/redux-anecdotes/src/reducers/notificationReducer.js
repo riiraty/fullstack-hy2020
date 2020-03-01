@@ -6,20 +6,26 @@ const notificationReducer = (state = '', action) => {
     case 'ERASE':
       return action.notification
     default:
-      console.log(state)
+      //console.log(state)
       return state
   }
 }
 
+var timeoutID
+
 export const notify = (notification, timeout) => {
+  clearTimeout(timeoutID)
+
   return async dispatch => {
-    await dispatch({
+    dispatch({
       type: 'SET_NOTIFICATION',
       notification,
     })
-    setTimeout(() => {
+
+    timeoutID = setTimeout(() => {
       dispatch(erase())
     }, timeout * 1000)
+
   }
 }
 
