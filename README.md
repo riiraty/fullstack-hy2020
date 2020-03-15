@@ -31,3 +31,8 @@
  
    * [unicafe-redux](https://github.com/riiraty/fullstack-hy2020/tree/master/osa6/unicafe-redux)
    * [redux-anecdotes](https://github.com/riiraty/fullstack-hy2020/tree/master/osa6/redux-anecdotes)
+   
+ * [Osa7](https://github.com/riiraty/fullstack-hy2020/tree/master/osa7)
+ 
+   * [routed-anecdotes](https://github.com/riiraty/fullstack-hy2020/tree/master/osa7/routed-anecdotes)
+   * [redux-bloglist](https://github.com/riiraty/fullstack-hy2020/tree/master/osa7/redux-bloglist)
