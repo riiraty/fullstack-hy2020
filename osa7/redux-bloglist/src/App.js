@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { notify, erase } from './reducers/notificationReducer'
+import notificationReducer, { notify, erase } from './reducers/notificationReducer'
 //import Blog from './components/Blog'
 import Notification from './components/Notification'
 import BlogForm from './components/BlogForm'
@@ -10,6 +10,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import userService from './services/users'
 import './App.css'
+import { Table, Form, Button } from 'react-bootstrap'
 
 import { initialize, create, like, comment, remove } from './reducers/blogReducer'
 import { login, logout } from './reducers/userReducer'
@@ -45,7 +46,11 @@ const Blog = ({ blogs, handleLike, handleComment }) => {
 
   const id = useParams().id
   const blog = blogs.find(b => b.id === String(id))
-  console.log(blog)
+  //const comments = blogs.find(b => b.id === String(id)).comments
+  //let comments = blog ? blog.comments : null
+  //console.log('comments:', comments)
+
+  console.log('blog, ', blog)
 
   const like = () => {
     handleLike({ blog })
@@ -76,25 +81,33 @@ const Blog = ({ blogs, handleLike, handleComment }) => {
   if(!blog) {
     return null
   }
+
+  if (!blog.comments) {
+    window.location.reload()
+    //return null
+  }
+
   return (
     <div>
       <h2>{blog.title}</h2>
       <div>
         <a href={blog.url}>{blog.url}</a> <br/>
-        {blog.likes} likes <button onClick={like}>like</button> <br/>
-        added by {blog.user.name} <br/>
+        {blog.likes} likes <Button variant='warning' onClick={like}>like</Button> <br/>
+        added by {blog.user.username} <br/>
         <h4>comments</h4>
-        <form onSubmit={onSubmit}>
-          <input 
-            id='comment'
-            value={comment}
+        <Form onSubmit={onSubmit}>
+          <Form.Group>
+          <Form.Control
+            type='text'
+            name='comment'
             onChange={handleCommentChange}
           />
-          <button id='comment-button' type="submit">add comment</button>
-        </form>
+          <Button variant='primary' name='comment-button' type="submit">add comment</Button>
+          </Form.Group>
+        </Form>
         <ul>
         {blog.comments.map(comment => 
-          <li>{comment}</li>)}
+          <li key={comment}>{comment}</li>)}
         </ul>
       </div>
     </div>
@@ -182,7 +195,8 @@ const App = () => {
         title: blog.title,
         author: blog.author,
         url: blog.url,
-        likes: newLikes
+        likes: newLikes,
+        comments: blog.comments
       }
       console.log('updatedBlog: ', updatedBlog)
       await blogService.update(id, updatedBlog)
@@ -260,21 +274,25 @@ const App = () => {
   const bloglist = () => {
     return (
       <div id='bloglist'>
-        {blogs.sort((a, b) => {
-          return b.likes - a.likes
-        }).map(blog =>
-          <div className="blog" key={blog.id}>
-          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-          </div>
-          //<Blog blog={blog} />
-          // <Blog
-          //   key={blog.id}
-          //   blog={blog}
-          //   user={user}
-          //   handleLike={handleLike}
-          //   handleRemove={handleRemove}
-          // />
-        )}
+        <Table striped>
+          <tbody>
+            {blogs.sort((a, b) => {
+              return b.likes - a.likes
+            }).map(blog =>
+              <tr kery={notificationReducer.id}>
+                <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+              </tr>
+              //<Blog blog={blog} />
+              // <Blog
+              //   key={blog.id}
+              //   blog={blog}
+              //   user={user}
+              //   handleLike={handleLike}
+              //   handleRemove={handleRemove}
+              // />
+            )}
+          </tbody>
+        </Table>
       </div>
     )
   }
@@ -304,12 +322,13 @@ const App = () => {
   const padding = { padding: 5 }
 
   return (
+    <div className="container">
     <Router>
       <div>
         <Link style={padding} to="/">blogs</Link>
         <Link style={padding} to="/users">users</Link>
         {user === null ? null : <em>{user.name} logged in </em>}
-        {user === null ? loginForm() : <button onClick={handleLogout}>logout</button>}
+        {user === null ? loginForm() : <Button variant='secondary' onClick={handleLogout}>logout</Button>}
       </div>
 
       <h1>Blog-app</h1>
@@ -349,6 +368,7 @@ const App = () => {
       </div> */}
 
     </Router>
+    </div>
   )
 }
 
