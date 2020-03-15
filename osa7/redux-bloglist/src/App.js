@@ -11,7 +11,7 @@ import loginService from './services/login'
 import userService from './services/users'
 import './App.css'
 
-import { initialize, create, like, remove } from './reducers/blogReducer'
+import { initialize, create, like, comment, remove } from './reducers/blogReducer'
 import { login, logout } from './reducers/userReducer'
 
 import {
@@ -40,14 +40,9 @@ const User = ({ users, blogs }) => {
   )
 }
 
-const Blog = ({ blogs, handleLike }) => {
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
+const Blog = ({ blogs, handleLike, handleComment }) => {
+  const [comment, setComment] = useState('')
+
   const id = useParams().id
   const blog = blogs.find(b => b.id === String(id))
   console.log(blog)
@@ -56,17 +51,52 @@ const Blog = ({ blogs, handleLike }) => {
     handleLike({ blog })
   }
 
+  const handleCommentChange = (event) => {
+    setComment(event.target.value)
+  }
+
+  const commentBlog = (comment) => {
+    console.log(comment)
+    const newComments = blog.comments.concat(comment.comment)
+    const updated = {
+      ...blog,
+      comments: newComments
+    }
+    console.log('updated after comment: ', updated)
+    handleComment(updated)
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+    commentBlog({ comment })
+
+    setComment('')
+  }
+
   if(!blog) {
     return null
   }
   return (
     <div>
       <h2>{blog.title}</h2>
-      <p>
+      <div>
         <a href={blog.url}>{blog.url}</a> <br/>
         {blog.likes} likes <button onClick={like}>like</button> <br/>
-        added by {blog.user.name}
-      </p>
+        added by {blog.user.name} <br/>
+        <h4>comments</h4>
+        <form onSubmit={onSubmit}>
+          <input 
+            id='comment'
+            value={comment}
+            onChange={handleCommentChange}
+          />
+          <button id='comment-button' type="submit">add comment</button>
+        </form>
+        <ul>
+        {blog.comments.map(comment => 
+          <li>{comment}</li>)}
+        </ul>
+      </div>
     </div>
   )
 }
@@ -164,6 +194,18 @@ const App = () => {
     }
   }
 
+  const handleComment = async (withNewComment) => {
+    console.log(withNewComment)
+    try{
+      const id = withNewComment.id
+      await blogService.comment(id, withNewComment)
+      dispatch(comment(withNewComment))
+      notifyWith('you added a comment')
+    } catch (exception) {
+      notifyWith('could not comment', 'error')
+    }
+  }
+
   const handleRemove = async ({ blog }) => {
     try {
       console.log(blog.id)
@@ -221,7 +263,7 @@ const App = () => {
         {blogs.sort((a, b) => {
           return b.likes - a.likes
         }).map(blog =>
-          <div key={blog.id}>
+          <div className="blog" key={blog.id}>
           <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
           </div>
           //<Blog blog={blog} />
@@ -283,7 +325,7 @@ const App = () => {
           {userlist()}
         </Route>
         <Route path="/blogs/:id">
-          <Blog blogs={blogs} handleLike={handleLike} />
+          <Blog blogs={blogs} handleLike={handleLike} handleComment={handleComment}/>
         </Route>
         <Route path="/">
           {blogForm()}

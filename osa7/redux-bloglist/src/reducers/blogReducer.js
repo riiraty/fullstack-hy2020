@@ -12,6 +12,12 @@ const blogReducer = (state = [], action) => {
       return state.map(blog => 
         blog.id !== id ? blog : action.data
       )
+    case 'COMMENT':
+      console.log('action data: ', action.data)
+      const commentID = action.data.id
+      return state.map(blog => 
+        blog.id !== commentID ? blog : action.data
+      )
     case 'DELETE':
       console.log('delete this: ', action.data)
       return state.filter(blog => blog.id !== action.data.id)
@@ -45,6 +51,13 @@ export const like = (updatedBlog) => {
   return {
     type: 'LIKE',
     data: updatedBlog,
+  }
+}
+
+export const comment = (updatedBlog) => {
+  return {
+    type: 'COMMENT',
+    data: updatedBlog
   }
 }
 
